@@ -8,6 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import com.deeplivecam.android.ui.DeepLiveCamNavHost
 import com.deeplivecam.android.ui.MainScreen
 import com.deeplivecam.android.ui.theme.DeepLiveCamTheme
 

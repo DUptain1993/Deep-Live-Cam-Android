@@ -22,9 +22,9 @@ class FaceEnhancer private constructor(private val context: Context) {
      */
     suspend fun initialize(): Boolean = withContext(Dispatchers.IO) {
         try {
-            val modelFile = modelManager.loadModel("gfpgan_fp16.tflite")
+            val modelFile = modelManager.loadModelFile("gfpgan_fp16.tflite")
             if (modelFile != null) {
-                tfliteEngine = TFLiteInferenceEngine(context, modelFile)
+                tfliteEngine = TFLiteInferenceEngine.getInstance(context)
                 isModelLoaded = true
                 Log.d(TAG, "Face enhancement model loaded successfully")
                 true
