@@ -26,6 +26,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddAPhoto
 import androidx.compose.material.icons.filled.Cameraswitch
 import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.PhotoLibrary
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material.icons.filled.Videocam
@@ -66,7 +67,10 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.atomic.AtomicBoolean
 
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    onNavigateToSettings: () -> Unit = {},
+    onNavigateToGallery: () -> Unit = {}
+) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val scope = rememberCoroutineScope()
@@ -106,7 +110,10 @@ fun MainScreen() {
             TopAppBar(
                 title = { Text("Deep Live Cam") },
                 actions = {
-                    IconButton(onClick = { /* Settings placeholder */ }) {
+                    IconButton(onClick = onNavigateToGallery) {
+                        Icon(Icons.Default.PhotoLibrary, "Gallery")
+                    }
+                    IconButton(onClick = onNavigateToSettings) {
                         Icon(Icons.Default.Settings, "Settings")
                     }
                 },

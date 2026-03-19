@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             DeepLiveCamTheme {
-                MainScreen()
+                DeepLiveCamNavHost()
             }
         }
     }

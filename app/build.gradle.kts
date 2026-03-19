@@ -108,6 +108,7 @@ dependencies {
     implementation("androidx.camera:camera-extensions:$cameraxVersion")
 
     implementation("com.google.mlkit:face-detection:16.1.6")
+    implementation("com.google.mlkit:image-labeling:17.0.8")
 
     val tfliteVersion = "2.14.0"
     implementation("org.tensorflow:tensorflow-lite:$tfliteVersion")
