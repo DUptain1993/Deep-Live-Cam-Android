@@ -1,0 +1,63 @@
+name: Android Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      build-type:
+        description: 'Build type (bundleRelease or assembleRelease)'
+        required: true
+        default: 'assembleRelease'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Install Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          packages: |
+            platform-tools
+            platforms;android-35
+            build-tools;35.0.0
+
+      - name: Make Gradle executable
+        run: chmod +x ./gradlew
+
+      - name: Restore Keystore
+        run: echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > release.keystore
+        shell: bash
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+
+      - name: Configure signing via Gradle properties
+        run: |
+          mkdir -p ~/.gradle
+          cat >> ~/.gradle/gradle.properties <<EOF
+          MY_KEYSTORE=${{ github.workspace }}/release.keystore
+          MY_KEY_ALIAS=${{ secrets.KEY_ALIAS }}
+          MY_KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}
+          MY_STORE_PASSWORD=${{ secrets.STORE_PASSWORD }}
+          EOF
+
+      - name: Build Release
+        run: ./gradlew --no-daemon --stacktrace ${{ github.event.inputs.build-type }}
+
+      - name: Upload Release Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release
+          path: |
+            app/build/outputs/apk/release/*.apk
+            app/build/outputs/bundle/release/*.aab

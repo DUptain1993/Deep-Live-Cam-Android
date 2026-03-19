@@ -1,0 +1,48 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+*.log
+
+# App build outputs
+app/build/
+app/release/
+
+# Keystore (never commit)
+*.jks
+*.keystore
+release.keystore
+
+# Google Play service account
+play.json
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Kotlin
+*.kotlin_module
+
+# Gradle
+.gradle/
+build/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+# IDE
+.idea/
+*.iws
+*.ipr
+out/
