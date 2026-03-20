@@ -1,8 +1,8 @@
 # Build & Installation Guide
 
-## 🚀 Complete Installation for Android 16 (No Root Required)
+## 🚀 Complete Installation for Android 15 (API 35) (No Root Required)
 
-This app is **ready to build and install** on any Android 16 device without root access.
+This app is **ready to build and install** on any Android device (API 26+) without root access.
 
 ---
 
@@ -11,7 +11,7 @@ This app is **ready to build and install** on any Android 16 device without root
 ### 1. Build the APK
 
 ```bash
-cd /root/Deep-Live-Cam-Android
+# cd into the project directory
 
 # Download Gradle wrapper (first time only)
 curl -L https://services.gradle.org/distributions/gradle-8.5-bin.zip -o gradle.zip
@@ -62,7 +62,7 @@ On first launch, the app will request:
 
 ### Device Requirements
 - **Android Version**: 8.0 (Oreo) or higher
-- **Target**: Android 16 ✅
+- **Target**: Android 15 (API 35)
 - **RAM**: 4GB (optimized for this)
 - **Storage**: ~50 MB for app + models
 - **Camera**: Front or back camera
@@ -71,7 +71,7 @@ On first launch, the app will request:
 ### Build Requirements
 - **JDK**: 17 or higher
 - **Gradle**: 8.5 (auto-downloaded)
-- **Android SDK**: API 35 (Android 16)
+- **Android SDK**: API 35 (Android 15)
 
 ---
 
@@ -114,7 +114,7 @@ adb version
 ### Build Commands
 
 ```bash
-cd /root/Deep-Live-Cam-Android
+# cd into the project directory
 
 # Clean previous builds
 ./gradlew clean
@@ -304,7 +304,7 @@ Edit `app/build.gradle.kts`:
 ```kotlin
 defaultConfig {
     minSdk = 26  // Minimum Android version
-    targetSdk = 35  // Android 16
+    targetSdk = 35  // Android 15 (API 35)
     
     // Increase memory for low-end devices
     ndk {
@@ -405,7 +405,7 @@ adb logcat -d > app_logs.txt
 ✅ **App is ready to build and install**
 ✅ **No root access required**
 ✅ **Optimized for 4GB RAM**
-✅ **Works on Android 16**
+✅ **Works on Android 8.0+**
 
 Build time: ~3-5 minutes
 Install time: ~30 seconds

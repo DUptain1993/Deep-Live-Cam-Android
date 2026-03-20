@@ -18,6 +18,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    env:
+      HAS_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
 
     steps:
       - name: Checkout code
@@ -36,7 +38,7 @@ jobs:
           packages: 'platform-tools platforms;android-35 build-tools;35.0.0'
 
       - name: Cache Gradle packages
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.gradle/caches
@@ -49,14 +51,14 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Restore Keystore
-        if: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
+        if: ${{ env.HAS_KEYSTORE == 'true' }}
         run: echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > release.keystore
         shell: bash
         env:
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
 
       - name: Configure signing via Gradle properties
-        if: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
+        if: ${{ env.HAS_KEYSTORE == 'true' }}
         run: |
           mkdir -p ~/.gradle
           cat >> ~/.gradle/gradle.properties <<EOF
@@ -67,13 +69,13 @@ jobs:
           EOF
 
       - name: Build Release (Unsigned fallback)
-        if: ${{ secrets.ANDROID_KEYSTORE_BASE64 == '' }}
+        if: ${{ env.HAS_KEYSTORE != 'true' }}
         run: |
-          echo "⚠️ No keystore found - building unsigned debug APK instead"
+          echo "No keystore found - building unsigned debug APK instead"
           ./gradlew --no-daemon --stacktrace assembleDebug
 
       - name: Build Release (Signed)
-        if: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
+        if: ${{ env.HAS_KEYSTORE == 'true' }}
         run: ./gradlew --no-daemon --stacktrace ${{ github.event.inputs.build-type || 'assembleRelease' }}
 
       - name: Upload Release APK
@@ -88,7 +90,7 @@ jobs:
 
       - name: Upload to GitHub Release
         if: github.event_name == 'release'
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: |
             app/build/outputs/apk/release/*.apk

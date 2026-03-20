@@ -283,7 +283,7 @@ Real-time face swap & deepfake app. On-device AI, no cloud, privacy-focused.
 
 ### Build Release AAB
 ```bash
-cd /home/xmrfk/Deep-Live-Cam-Android
+cd Deep-Live-Cam-Android
 ./gradlew bundleRelease
 ```
 

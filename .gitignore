@@ -29,7 +29,6 @@ play.json
 
 # OS files
 Thumbs.db
-.DS_Store
 
 # Kotlin
 *.kotlin_module
@@ -46,3 +45,16 @@ gradle-app.setting
 *.iws
 *.ipr
 out/
+
+# Model binaries
+*.tflite
+*.onnx
+temp_tf_model/
+
+# Secrets / credentials
+.env
+secrets.properties
+key.properties
+
+# Heap dumps
+*.hprof

@@ -8,8 +8,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 /**
- * Face enhancement using GFPGAN or placeholder logic
- * Enhances face quality by upscaling and denoising
+ * Face enhancement using GFPGAN or placeholder logic.
+ *
+ * The ML-based enhancement path is scaffolded but the actual GFPGAN
+ * inference is **not yet implemented**. When no model file is present
+ * (the default), [enhance] falls back to a simple contrast-boost filter.
  */
 class FaceEnhancer private constructor(private val context: Context) {
     

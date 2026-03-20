@@ -245,7 +245,7 @@ This enables image labeling for the optional NSFW filter feature.
 12. `androidTest/MainScreenInstrumentedTest.kt` - UI tests
 13. Plus 3 documentation files (Privacy Policy, Play Store Description, Checklist)
 
-### Modified Files: 3
+### Modified Files: 4
 1. `MainActivity.kt` - Added navigation support
 2. `MainScreen.kt` - Added navigation callbacks and gallery icon
 3. `build.gradle.kts` - Added image labeling dependency

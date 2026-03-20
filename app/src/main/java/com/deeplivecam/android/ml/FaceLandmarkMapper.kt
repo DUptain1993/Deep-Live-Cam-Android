@@ -21,19 +21,19 @@ object FaceLandmarkMapper {
         targetLandmarks: Map<String, PointF>
     ): FaceTransform? {
         // Need at least eyes and nose for basic alignment
-        val sourceLeftEye = sourceLandmarks["LEFT_EYE"] ?: return null
-        val sourceRightEye = sourceLandmarks["RIGHT_EYE"] ?: return null
-        val sourceNose = sourceLandmarks["NOSE_BASE"] ?: return null
+        val sourceLeftEye = sourceLandmarks["left_eye"] ?: return null
+        val sourceRightEye = sourceLandmarks["right_eye"] ?: return null
+        val sourceNose = sourceLandmarks["nose"] ?: return null
         
-        val targetLeftEye = targetLandmarks["LEFT_EYE"] ?: return null
-        val targetRightEye = targetLandmarks["RIGHT_EYE"] ?: return null
-        val targetNose = targetLandmarks["NOSE_BASE"] ?: return null
+        val targetLeftEye = targetLandmarks["left_eye"] ?: return null
+        val targetRightEye = targetLandmarks["right_eye"] ?: return null
+        val targetNose = targetLandmarks["nose"] ?: return null
         
-        // Calculate eye distance (inter-pupillary distance)
         val sourceEyeDist = distance(sourceLeftEye, sourceRightEye)
         val targetEyeDist = distance(targetLeftEye, targetRightEye)
         
-        // Calculate scale factor
+        if (sourceEyeDist < 1f) return null
+        
         val scale = targetEyeDist / sourceEyeDist
         
         // Calculate rotation (based on eye line angle)
@@ -63,9 +63,9 @@ object FaceLandmarkMapper {
      * Used for mouth masking feature
      */
     fun getMouthRegion(landmarks: Map<String, PointF>, boundingBox: RectF): RectF? {
-        val mouthLeft = landmarks["MOUTH_LEFT"]
-        val mouthRight = landmarks["MOUTH_RIGHT"]
-        val mouthBottom = landmarks["MOUTH_BOTTOM"]
+        val mouthLeft = landmarks["mouth_left"]
+        val mouthRight = landmarks["mouth_right"]
+        val mouthBottom = landmarks["mouth_bottom"]
         
         if (mouthLeft == null || mouthRight == null) {
             // Fallback: use lower third of face

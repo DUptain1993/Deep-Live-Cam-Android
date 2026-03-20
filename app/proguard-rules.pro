@@ -36,5 +36,5 @@
     volatile <fields>;
 }
 
-# Compose
--keep class androidx.compose.** { *; }
+# Compose (R8 handles Compose out of the box; only keep runtime internals)
+-keep class androidx.compose.runtime.** { *; }

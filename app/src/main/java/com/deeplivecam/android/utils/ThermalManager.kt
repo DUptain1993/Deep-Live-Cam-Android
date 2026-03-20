@@ -7,6 +7,7 @@ import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,7 +25,7 @@ class ThermalManager private constructor(private val context: Context) {
     val thermalState: StateFlow<ThermalState> = _thermalState
     
     private var monitoringJob: Job? = null
-    private val scope = CoroutineScope(Dispatchers.IO)
+    private val scope = CoroutineScope(Dispatchers.IO + Job())
     
     /**
      * Start monitoring device temperature
@@ -59,6 +60,11 @@ class ThermalManager private constructor(private val context: Context) {
         monitoringJob?.cancel()
         monitoringJob = null
         _thermalState.value = ThermalState.NORMAL
+    }
+    
+    fun release() {
+        stopMonitoring()
+        scope.cancel()
     }
     
     /**

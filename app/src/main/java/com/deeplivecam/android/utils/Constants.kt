@@ -59,6 +59,8 @@ object Constants {
     const val KEY_NSFW_FILTER = "nsfw_filter"
     const val KEY_EXECUTION_PROVIDER = "execution_provider"
     const val KEY_QUALITY = "output_quality"
+    const val KEY_RESOLUTION = "resolution"
+    const val KEY_TARGET_FPS = "target_fps"
     
     // Execution Providers
     const val EXEC_CPU = "cpu"
