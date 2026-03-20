@@ -62,30 +62,27 @@ fun SettingsScreen(
                     Text("Resolution", style = MaterialTheme.typography.bodyMedium)
                     Spacer(modifier = Modifier.height(8.dp))
                     
-                    var selectedResolution by remember { mutableStateOf("720p") }
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        ResolutionChip("480p", selectedResolution) { selectedResolution = it }
-                        ResolutionChip("720p", selectedResolution) { selectedResolution = it }
-                        ResolutionChip("1080p", selectedResolution) { selectedResolution = it }
+                        ResolutionChip("480p", settings.resolution) { scope.launch { settingsRepository.setResolution(it) } }
+                        ResolutionChip("720p", settings.resolution) { scope.launch { settingsRepository.setResolution(it) } }
+                        ResolutionChip("1080p", settings.resolution) { scope.launch { settingsRepository.setResolution(it) } }
                     }
                     
                     Spacer(modifier = Modifier.height(16.dp))
                     
-                    // FPS target
                     Text("Target FPS", style = MaterialTheme.typography.bodyMedium)
                     Spacer(modifier = Modifier.height(8.dp))
                     
-                    var selectedFps by remember { mutableStateOf("24") }
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        FpsChip("15", selectedFps) { selectedFps = it }
-                        FpsChip("24", selectedFps) { selectedFps = it }
-                        FpsChip("30", selectedFps) { selectedFps = it }
+                        FpsChip("15", settings.targetFps) { scope.launch { settingsRepository.setTargetFps(it) } }
+                        FpsChip("24", settings.targetFps) { scope.launch { settingsRepository.setTargetFps(it) } }
+                        FpsChip("30", settings.targetFps) { scope.launch { settingsRepository.setTargetFps(it) } }
                     }
                     
                     Spacer(modifier = Modifier.height(16.dp))
@@ -206,8 +203,8 @@ fun SettingsScreen(
             Card(modifier = Modifier.fillMaxWidth()) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     SettingSwitch(
-                        title = "NSFW Filter",
-                        description = "Block inappropriate content (recommended)",
+                        title = "NSFW Filter (placeholder)",
+                        description = "Not yet functional \u2014 a classifier model must be added",
                         checked = settings.nsfwFilter,
                         onCheckedChange = { scope.launch { settingsRepository.setNsfwFilter(it) } }
                     )

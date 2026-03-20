@@ -30,28 +30,27 @@ class ImageProcessor(private val context: Context) {
         enhanceFace: Boolean = false
     ): ProcessingResult = withContext(Dispatchers.IO) {
         try {
-            // Load input image
-            val inputStream = context.contentResolver.openInputStream(inputUri)
-            val bitmap = BitmapFactory.decodeStream(inputStream)
-            inputStream?.close()
+            val bitmap = context.contentResolver.openInputStream(inputUri)?.use { stream ->
+                BitmapFactory.decodeStream(stream)
+            }
             
             if (bitmap == null) {
                 return@withContext ProcessingResult.Error("Failed to load image")
             }
             
-            // Scale if too large
             val scaledBitmap = BitmapUtils.scaleBitmap(bitmap, 2048, 2048)
-            if (scaledBitmap != bitmap) {
+            if (scaledBitmap !== bitmap) {
                 bitmap.recycle()
             }
             
-            // Process face swap
             val swappedBitmap = faceSwapProcessor.processFaceSwap(scaledBitmap)
+            if (swappedBitmap !== scaledBitmap) {
+                scaledBitmap.recycle()
+            }
             
-            // Optional enhancement
             val finalBitmap = if (enhanceFace) {
                 val enhanced = faceEnhancer.enhance(swappedBitmap)
-                if (enhanced != swappedBitmap) {
+                if (enhanced !== swappedBitmap) {
                     swappedBitmap.recycle()
                 }
                 enhanced
@@ -59,16 +58,11 @@ class ImageProcessor(private val context: Context) {
                 swappedBitmap
             }
             
-            // Save to output file
             FileOutputStream(outputFile).use { out ->
                 finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out)
             }
             
-            // Cleanup
-            scaledBitmap.recycle()
-            if (finalBitmap != scaledBitmap) {
-                finalBitmap.recycle()
-            }
+            finalBitmap.recycle()
             
             Log.d(TAG, "Image processed successfully: ${outputFile.absolutePath}")
             ProcessingResult.Success(outputFile)

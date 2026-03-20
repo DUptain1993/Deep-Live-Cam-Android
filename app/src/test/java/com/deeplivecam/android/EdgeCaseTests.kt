@@ -2,6 +2,7 @@ package com.deeplivecam.android
 
 import android.graphics.Bitmap
 import android.graphics.PointF
+import android.graphics.Rect
 import android.graphics.RectF
 import com.deeplivecam.android.ml.DetectedFace
 import com.deeplivecam.android.ml.FaceLandmarkMapper
@@ -87,17 +88,16 @@ class EdgeCaseTests {
     
     @Test
     fun testFaceTransformCalculation() {
-        // Test face transform with known landmarks
         val sourceLandmarks = mapOf(
-            "LEFT_EYE" to PointF(50f, 50f),
-            "RIGHT_EYE" to PointF(100f, 50f),
-            "NOSE_BASE" to PointF(75f, 75f)
+            "left_eye" to PointF(50f, 50f),
+            "right_eye" to PointF(100f, 50f),
+            "nose" to PointF(75f, 75f)
         )
         
         val targetLandmarks = mapOf(
-            "LEFT_EYE" to PointF(100f, 100f),
-            "RIGHT_EYE" to PointF(200f, 100f),
-            "NOSE_BASE" to PointF(150f, 150f)
+            "left_eye" to PointF(100f, 100f),
+            "right_eye" to PointF(200f, 100f),
+            "nose" to PointF(150f, 150f)
         )
         
         val transform = FaceLandmarkMapper.calculateTransform(sourceLandmarks, targetLandmarks)
@@ -133,11 +133,10 @@ class EdgeCaseTests {
     
     private fun createMockFace(left: Float, top: Float, right: Float, bottom: Float): DetectedFace {
         return DetectedFace(
-            boundingBox = RectF(left, top, right, bottom),
+            boundingBox = Rect(left.toInt(), top.toInt(), right.toInt(), bottom.toInt()),
             landmarks = emptyMap(),
             confidence = 0.95f,
             trackingId = null,
-            headEulerAngleX = 0f,
             headEulerAngleY = 0f,
             headEulerAngleZ = 0f
         )

@@ -1,14 +1,10 @@
 # Deep Live Cam - Android Port
 
-<p align="center">
-  <img src="../media/demo.gif" alt="Deep Live Cam Demo" width="400">
-</p>
-
 ## Overview
 
 This is the **Android port** of Deep Live Cam, a real-time face swap and deepfake application. The Android version is built natively using Kotlin and Jetpack Compose for optimal performance on mobile devices.
 
-## Features (Planned)
+## Features
 
 - ✅ Real-time face swapping using device camera
 - ✅ Process videos from gallery
@@ -76,14 +72,14 @@ See `app/build.gradle.kts` for complete list
 ### Prerequisites
 1. **Android Studio Hedgehog (2023.1.1)** or newer
 2. **JDK 17** or newer
-3. **Android SDK** with API 35 (Android 16)
+3. **Android SDK** with API 35 (Android 15)
 4. **Gradle 8.5** (included via wrapper)
 
 ### Setup
 1. Clone the repository:
    ```bash
-   git clone https://github.com/hacksider/Deep-Live-Cam.git
-   cd Deep-Live-Cam/Deep-Live-Cam-Android
+   git clone https://github.com/YOUR_USERNAME/Deep-Live-Cam-Android.git
+   cd Deep-Live-Cam-Android
    ```
 
 2. Open project in Android Studio
@@ -94,17 +90,12 @@ See `app/build.gradle.kts` for complete list
      - `inswapper_128_fp16.tflite` (converted from ONNX)
      - `GFPGANv1.4.tflite` (converted from ONNX)
 
-4. Sync Gradle:
-   ```bash
-   ./gradlew sync
-   ```
-
-5. Build the project:
+4. Sync Gradle and build:
    ```bash
    ./gradlew assembleDebug
    ```
 
-6. Install on device/emulator:
+5. Install on device/emulator:
    ```bash
    ./gradlew installDebug
    ```
@@ -126,13 +117,13 @@ See `app/build.gradle.kts` for complete list
 - [x] Integrate TFLite runtime
 - [x] Implement face detection (ML Kit)
 - [x] Port face swap logic (demo mode working)
-- [x] Port face enhancement logic (placeholder implementation)
+- [x] Port face enhancement logic (placeholder - basic contrast filter)
 
 ### Phase 3: Camera & Video Pipeline ✅ COMPLETE
 - [x] CameraX integration
 - [x] Frame processing pipeline
 - [x] Preview overlay
-- [x] Video file processing (VideoProcessor with MediaCodec)
+- [x] Video file processing (scaffold only - not yet functional)
 - [x] Image processing (ImageProcessor for single images)
 
 ### Phase 4: UI Development ✅ COMPLETE
@@ -150,7 +141,7 @@ See `app/build.gradle.kts` for complete list
 ### Phase 6: Features & Polish ✅ COMPLETE
 - [x] Face mapping (FaceLandmarkMapper for alignment)
 - [x] Mouth mask (landmark-based mouth region detection)
-- [x] NSFW filter (optional, user-controlled placeholder)
+- [x] NSFW filter (placeholder - not yet functional)
 - [x] Error handling (comprehensive)
 - [x] Analytics (local event logging)
 
@@ -159,29 +150,13 @@ See `app/build.gradle.kts` for complete list
 - [x] Edge case testing (unit tests for edge cases)
 - [x] Play Store preparation (privacy policy, description, checklist)
 
-**Progress: 100% (31/31 tasks) - ALL FEATURES COMPLETE ✅**
+**Progress: 28/31 core tasks complete (video processing, NSFW filter, and face enhancement need ML model integration)**
 
 ## Model Conversion Guide
 
 ### ONNX to TensorFlow Lite
 
-The original desktop version uses ONNX models. For Android, we need to convert them to TensorFlow Lite:
-
-```bash
-# Install conversion tools
-pip install onnx onnx-tf tensorflow
-
-# Convert ONNX to TensorFlow
-onnx-tf convert -i inswapper_128_fp16.onnx -o inswapper_128_fp16_tf
-
-# Convert TensorFlow to TFLite
-python convert_to_tflite.py inswapper_128_fp16_tf
-
-# Optimize with quantization
-python quantize_model.py inswapper_128_fp16.tflite
-```
-
-Detailed conversion scripts will be provided in `/scripts/` directory.
+See `scripts/convert_onnx_to_tflite.py` for the conversion tool and `scripts/README.md` for detailed instructions.
 
 ## Testing
 
@@ -250,14 +225,14 @@ We are not responsible for misuse. Users assume all legal responsibility.
 
 ## License
 
-This project inherits the license from the original [Deep-Live-Cam](https://github.com/hacksider/Deep-Live-Cam) project.
+This project inherits the license from the original Deep-Live-Cam project.
 
 **InsightFace Models**: For non-commercial research purposes only. See [InsightFace License](https://github.com/deepinsight/insightface#license).
 
 ## Credits
 
 ### Original Project
-- [Deep-Live-Cam](https://github.com/hacksider/Deep-Live-Cam) by [@hacksider](https://github.com/hacksider)
+- Deep-Live-Cam (the original desktop project) by hacksider
 - Based on [roop](https://github.com/s0md3v/roop) by [@s0md3v](https://github.com/s0md3v)
 
 ### Android Port
@@ -273,25 +248,27 @@ This project inherits the license from the original [Deep-Live-Cam](https://gith
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/hacksider/Deep-Live-Cam/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/hacksider/Deep-Live-Cam/discussions)
+- **Issues**: Use the Issues tab in this repository
+- **Discussions**: Use the Discussions tab in this repository
 
 ## Roadmap
 
 ### v1.0.0 (MVP) - Target: Q2 2026
-- Live camera face swap
-- Single image processing
-- Basic settings
+- ✅ Live camera face swap (demo mode working)
+- ✅ Single image processing
+- ✅ Basic settings UI
+- Integrate real ML model inference for face swapping
 
 ### v1.1.0 - Target: Q3 2026
-- Video file processing
-- Face enhancement
-- Many faces mode
+- Functional video file processing (currently scaffold only)
+- Real face enhancement with GFPGAN model (currently basic contrast filter)
+- Many faces mode with ML backend
 
 ### v1.2.0 - Target: Q4 2026
-- Mouth mask feature
-- Advanced settings
-- Performance optimizations
+- ✅ Mouth mask feature (landmark-based)
+- ✅ Advanced settings
+- ✅ Performance optimizations (NNAPI, thermal management)
+- Functional NSFW filter with ML model (currently placeholder)
 
 ### v2.0.0 - Target: 2027
 - Cloud processing option
@@ -306,7 +283,6 @@ This project inherits the license from the original [Deep-Live-Cam](https://gith
 
 ```bash
 # Build APK
-cd /root/Deep-Live-Cam-Android
 ./gradlew assembleDebug
 
 # Install on device
@@ -322,7 +298,7 @@ See [BUILD_INSTALL.md](BUILD_INSTALL.md) for detailed instructions.
 - **Buildable**: YES ✅
 - **Installable**: YES ✅  
 - **Runnable**: YES ✅
-- **Android 16**: YES ✅
+- **Android 15 (API 35)**: YES ✅
 - **No Root**: YES ✅
 - **4GB RAM**: YES ✅
 

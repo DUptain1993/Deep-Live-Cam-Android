@@ -1,10 +1,7 @@
 # 🚀 Quick Start - Build via GitHub Actions
 
-## ⚠️ Your Laptop Specs
-- **RAM:** 4GB
-- **Storage:** ~50GB
-- **OS:** Windows with WSL2-Ubuntu
-- **Java:** Not installed (and that's OK!)
+## Why GitHub Actions?
+If your local machine doesn't have the Android SDK or sufficient resources, GitHub Actions can build the APK in the cloud for free.
 
 ## ✅ Solution: Use GitHub Actions
 
@@ -14,14 +11,14 @@
 
 ### Step 1: Push Your Code
 ```bash
-cd /home/xmrfk/Deep-Live-Cam-Android
+cd Deep-Live-Cam-Android
 git add .
 git commit -m "Your changes"
 git push origin master
 ```
 
 ### Step 2: Wait for Build
-1. Go to: https://github.com/DUptain1993/Deep-Live-Cam-Android/actions
+1. Go to your repository's **Actions** tab on GitHub
 2. Click on the latest workflow run
 3. Wait ~5-10 minutes for completion
 4. ✅ Green checkmark = Success!
@@ -32,7 +29,7 @@ git push origin master
 3. Extract ZIP file
 4. Install `app-debug.apk` on your Android device
 
-## 🎯 What I've Set Up For You
+## 🎯 What's configured
 
 ### 1. Auto Debug Builds
 - **When:** Every push to `master` branch
@@ -70,7 +67,7 @@ You can also trigger builds manually:
 
 ## 🔧 What Changed
 
-I've improved your GitHub Actions workflows:
+The GitHub Actions workflows include:
 
 1. **`.github/workflows/android-debug.yml`**
    - Added better caching
@@ -199,7 +196,7 @@ GitHub Actions is free for public repositories with:
 
 ## 🎯 TL;DR
 
-1. **Don't build locally** - your laptop can't handle it
+1. **Optional:** skip local builds and use GitHub Actions instead
 2. **Just push code** to GitHub
 3. **Wait 5-10 minutes** for Actions to build
 4. **Download APK** from artifacts

@@ -128,9 +128,9 @@ Transform yourself in real-time with cutting-edge AI face swap technology, runni
 
 ### 🔗 LINKS
 
-- **GitHub**: https://github.com/hacksider/Deep-Live-Cam
-- **Privacy Policy**: https://github.com/hacksider/Deep-Live-Cam/PRIVACY_POLICY.md
-- **Support**: https://github.com/hacksider/Deep-Live-Cam/issues
+- **GitHub**: https://github.com/YOUR_USERNAME/Deep-Live-Cam-Android
+- **Privacy Policy**: https://github.com/YOUR_USERNAME/Deep-Live-Cam-Android/blob/master/PRIVACY_POLICY.md
+- **Support**: https://github.com/YOUR_USERNAME/Deep-Live-Cam-Android/issues
 
 ### ⚖️ LICENSE & CREDITS
 

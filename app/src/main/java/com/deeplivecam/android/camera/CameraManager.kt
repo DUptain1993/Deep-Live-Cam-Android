@@ -93,6 +93,9 @@ class CameraManager(private val context: Context) {
         try {
             val bitmap = imageProxy.toBitmap()
             val scaledBitmap = BitmapUtils.scaleBitmap(bitmap, 640, 480)
+            if (scaledBitmap !== bitmap) {
+                bitmap.recycle()
+            }
 
             val processedBitmap = frameProcessor?.invoke(scaledBitmap)
 
@@ -100,10 +103,9 @@ class CameraManager(private val context: Context) {
                 _cameraState.value = CameraState.FrameProcessed(processedBitmap)
             }
 
-            if (scaledBitmap !== bitmap) {
+            if (processedBitmap !== scaledBitmap) {
                 scaledBitmap.recycle()
             }
-            bitmap.recycle()
         } catch (e: Exception) {
             Log.e(TAG, "Frame processing error", e)
         } finally {

@@ -92,13 +92,13 @@ We may update this privacy policy from time to time. Changes will be posted with
 ## Contact Us
 
 For privacy concerns or questions:
-- **GitHub Issues**: https://github.com/hacksider/Deep-Live-Cam/issues
-- **Email**: [Your support email]
+- **GitHub Issues**: See the Issues tab in this repository
+- **Email**: See the Issues tab on this project's GitHub repository
 
 ## Open Source
 
 This app is open source. You can review the code to verify our privacy claims:
-- **GitHub**: https://github.com/hacksider/Deep-Live-Cam
+- **GitHub**: This project's GitHub repository
 
 ## Summary
 

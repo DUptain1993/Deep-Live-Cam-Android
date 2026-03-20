@@ -15,7 +15,7 @@ pip install onnx onnx-tf tensorflow numpy pillow
 Download the ONNX models from the original Deep Live Cam repository:
 
 ```bash
-cd /root/Deep-Live-Cam/models
+cd path/to/models
 # Should contain:
 # - inswapper_128_fp16.onnx (face swap model)
 # - GFPGANv1.4.onnx (face enhancement model)
@@ -28,16 +28,16 @@ Or download from Hugging Face:
 ### 2. Convert Models
 
 ```bash
-cd /root/Deep-Live-Cam-Android/scripts
+cd scripts/
 
 # Convert face swap model with INT8 quantization (recommended for 4GB RAM)
 python3 convert_onnx_to_tflite.py \
-    /root/Deep-Live-Cam/models/inswapper_128_fp16.onnx \
+    path/to/models/inswapper_128_fp16.onnx \
     --output ../app/src/main/assets/models/inswapper_128_int8.tflite
 
 # Convert face enhancement model (FP16 for better quality)
 python3 convert_onnx_to_tflite.py \
-    /root/Deep-Live-Cam/models/GFPGANv1.4.onnx \
+    path/to/models/GFPGANv1.4.onnx \
     --output ../app/src/main/assets/models/gfpgan_fp16.tflite \
     --no-quantize
 ```
@@ -89,13 +89,13 @@ App Memory Limit: ~512 MB
 
 1. Copy models to assets directory:
 ```bash
-mkdir -p /root/Deep-Live-Cam-Android/app/src/main/assets/models
-cp *.tflite /root/Deep-Live-Cam-Android/app/src/main/assets/models/
+mkdir -p app/src/main/assets/models
+cp *.tflite app/src/main/assets/models/
 ```
 
 2. Build and install app:
 ```bash
-cd /root/Deep-Live-Cam-Android
+cd ..
 ./gradlew installDebug
 ```
 

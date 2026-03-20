@@ -29,6 +29,8 @@ class SettingsRepository private constructor(private val context: Context) {
         val NSFW_FILTER = booleanPreferencesKey(Constants.KEY_NSFW_FILTER)
         val EXECUTION_PROVIDER = stringPreferencesKey(Constants.KEY_EXECUTION_PROVIDER)
         val OUTPUT_QUALITY = floatPreferencesKey(Constants.KEY_QUALITY)
+        val RESOLUTION = stringPreferencesKey(Constants.KEY_RESOLUTION)
+        val TARGET_FPS = stringPreferencesKey(Constants.KEY_TARGET_FPS)
     }
     
     // Settings data class
@@ -37,9 +39,11 @@ class SettingsRepository private constructor(private val context: Context) {
         val mouthMask: Boolean = false,
         val faceEnhancement: Boolean = false,
         val mirrorCamera: Boolean = false,
-        val nsfwFilter: Boolean = true,  // Enabled by default
+        val nsfwFilter: Boolean = true,
         val executionProvider: String = Constants.EXEC_NNAPI,
-        val outputQuality: Float = Constants.DEFAULT_QUALITY
+        val outputQuality: Float = Constants.DEFAULT_QUALITY,
+        val resolution: String = "720p",
+        val targetFps: String = "24"
     )
     
     /**
@@ -63,7 +67,9 @@ class SettingsRepository private constructor(private val context: Context) {
                 executionProvider = preferences[PreferencesKeys.EXECUTION_PROVIDER] 
                     ?: Constants.EXEC_NNAPI,
                 outputQuality = preferences[PreferencesKeys.OUTPUT_QUALITY] 
-                    ?: Constants.DEFAULT_QUALITY
+                    ?: Constants.DEFAULT_QUALITY,
+                resolution = preferences[PreferencesKeys.RESOLUTION] ?: "720p",
+                targetFps = preferences[PreferencesKeys.TARGET_FPS] ?: "24"
             )
         }
     
@@ -127,6 +133,18 @@ class SettingsRepository private constructor(private val context: Context) {
     suspend fun setOutputQuality(quality: Float) {
         context.dataStore.edit { preferences ->
             preferences[PreferencesKeys.OUTPUT_QUALITY] = quality
+        }
+    }
+    
+    suspend fun setResolution(resolution: String) {
+        context.dataStore.edit { preferences ->
+            preferences[PreferencesKeys.RESOLUTION] = resolution
+        }
+    }
+    
+    suspend fun setTargetFps(fps: String) {
+        context.dataStore.edit { preferences ->
+            preferences[PreferencesKeys.TARGET_FPS] = fps
         }
     }
     

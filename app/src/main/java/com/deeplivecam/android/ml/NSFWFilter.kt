@@ -5,9 +5,12 @@ import android.graphics.Bitmap
 import android.util.Log
 
 /**
- * NSFW (Not Safe For Work) content filter - OPTIONAL
- * Simple placeholder that can be enabled/disabled by user
- * Defaults to DISABLED - users have full control
+ * NSFW (Not Safe For Work) content filter - OPTIONAL.
+ *
+ * This is a **placeholder** implementation. No ML model is loaded and
+ * [isSafeContent] always returns `true`. A real classifier (e.g. an
+ * image-labeling TFLite model) should be integrated before this toggle
+ * is exposed to users as a safety feature.
  */
 class NSFWFilter private constructor(private val context: Context) {
     
