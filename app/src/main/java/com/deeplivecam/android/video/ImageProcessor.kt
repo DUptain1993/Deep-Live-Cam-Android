@@ -59,7 +59,8 @@ class ImageProcessor(private val context: Context) {
             }
             
             FileOutputStream(outputFile).use { out ->
-                finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out)
+                // Use high quality (95%) for final output
+                finalBitmap.compress(Bitmap.CompressFormat.JPEG, 95, out)
             }
             
             finalBitmap.recycle()

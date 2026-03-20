@@ -54,12 +54,18 @@ class CameraManager(private val context: Context) {
                         .build()
 
                     preview = Preview.Builder()
+                        .setTargetResolution(
+                            android.util.Size(Constants.PREVIEW_WIDTH, Constants.PREVIEW_HEIGHT)
+                        )
                         .build()
                         .also {
                             it.setSurfaceProvider(previewView.surfaceProvider)
                         }
 
                     imageAnalyzer = ImageAnalysis.Builder()
+                        .setTargetResolution(
+                            android.util.Size(Constants.PREVIEW_WIDTH, Constants.PREVIEW_HEIGHT)
+                        )
                         .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                         .build()
                         .also {
@@ -92,7 +98,13 @@ class CameraManager(private val context: Context) {
     private fun processFrame(imageProxy: ImageProxy) {
         try {
             val bitmap = imageProxy.toBitmap()
-            val scaledBitmap = BitmapUtils.scaleBitmap(bitmap, 640, 480)
+            // Use higher resolution from Constants for better quality
+            val scaledBitmap = BitmapUtils.scaleBitmap(
+                bitmap, 
+                Constants.PREVIEW_WIDTH, 
+                Constants.PREVIEW_HEIGHT,
+                highQuality = true
+            )
             if (scaledBitmap !== bitmap) {
                 bitmap.recycle()
             }

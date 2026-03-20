@@ -13,10 +13,10 @@ object Constants {
     const val BITMAP_MEMORY_LIMIT_MB = 100  // Max memory for bitmaps
     
     // Image Processing (Optimized for 4GB RAM)
-    const val MAX_INPUT_WIDTH = 720  // Reduced from 1080p
-    const val MAX_INPUT_HEIGHT = 720
-    const val PREVIEW_WIDTH = 640
-    const val PREVIEW_HEIGHT = 480
+    const val MAX_INPUT_WIDTH = 1920  // Full HD width for better quality
+    const val MAX_INPUT_HEIGHT = 1920
+    const val PREVIEW_WIDTH = 1280  // Improved from 640
+    const val PREVIEW_HEIGHT = 960   // Improved from 480 (4:3 ratio)
     const val MODEL_INPUT_SIZE = 128  // Face swap model input
     const val ENHANCEMENT_INPUT_SIZE = 512  // Face enhancement (if enabled)
     
@@ -42,7 +42,7 @@ object Constants {
     const val CACHE_DIR = "cache"
     
     // Processing Options
-    const val DEFAULT_QUALITY = 0.85f  // JPEG quality
+    const val DEFAULT_QUALITY = 0.95f  // JPEG quality (increased from 0.85)
     const val FACE_CONFIDENCE_THRESHOLD = 0.7f
     const val MAX_FACES = 5  // Limit for many-faces mode
     
