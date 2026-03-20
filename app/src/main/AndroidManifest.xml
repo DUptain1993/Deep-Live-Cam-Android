@@ -56,26 +56,38 @@
             When any app (browser, messaging app, etc.) fires ACTION_IMAGE_CAPTURE
             or ACTION_VIDEO_CAPTURE, Android will include Deep Live Cam in the
             app-chooser dialog so the user can pick it instead of the stock camera.
+            
+            Setting higher priority ensures it appears prominently in the chooser.
         -->
         <activity
             android:name=".CameraCaptureActivity"
             android:exported="true"
             android:theme="@style/Theme.DeepLiveCam"
             android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize|keyboardHidden">
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="Deep Live Cam">
 
-            <intent-filter>
+            <!-- Image capture with high priority -->
+            <intent-filter android:priority="999">
                 <action android:name="android.media.action.IMAGE_CAPTURE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
-            <intent-filter>
+            <!-- Video capture with high priority -->
+            <intent-filter android:priority="999">
                 <action android:name="android.media.action.VIDEO_CAPTURE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
-            <intent-filter>
+            <!-- Secure image capture -->
+            <intent-filter android:priority="999">
                 <action android:name="android.media.action.IMAGE_CAPTURE_SECURE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            
+            <!-- Also respond to generic camera intents -->
+            <intent-filter android:priority="999">
+                <action android:name="android.intent.action.CAMERA_BUTTON" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
