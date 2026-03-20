@@ -8,11 +8,6 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
 import com.deeplivecam.android.ui.DeepLiveCamNavHost
 import com.deeplivecam.android.ui.theme.DeepLiveCamTheme
@@ -33,29 +28,17 @@ class MainActivity : ComponentActivity() {
         try {
             requestNeededPermissions()
             Log.d(TAG, "Permissions requested")
-
-            setContent {
-                DeepLiveCamTheme {
-                    try {
-                        DeepLiveCamNavHost()
-                    } catch (e: Exception) {
-                        Log.e(TAG, "Error in DeepLiveCamNavHost", e)
-                        // Fallback to error display
-                        Box(
-                            modifier = androidx.compose.ui.Modifier.fillMaxSize(),
-                            contentAlignment = androidx.compose.ui.Alignment.Center
-                        ) {
-                            Text("Error: ${e.message}")
-                        }
-                    }
-                }
-            }
-            
-            Log.d(TAG, "MainActivity onCreate - completed")
         } catch (e: Exception) {
-            Log.e(TAG, "Fatal error in MainActivity.onCreate", e)
-            throw e
+            Log.e(TAG, "Permission request failed", e)
         }
+
+        setContent {
+            DeepLiveCamTheme {
+                DeepLiveCamNavHost()
+            }
+        }
+        
+        Log.d(TAG, "MainActivity onCreate - completed")
     }
 
     private fun requestNeededPermissions() {
