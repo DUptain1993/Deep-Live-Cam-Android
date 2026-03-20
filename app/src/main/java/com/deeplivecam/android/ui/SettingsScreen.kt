@@ -129,8 +129,8 @@ fun SettingsScreen(
                         }
                     )
                     
-                    Divider()
-                    
+                    HorizontalDivider()
+
                     // Face detection sensitivity
                     Text("Face Detection Sensitivity", style = MaterialTheme.typography.bodyMedium)
                     Text(
@@ -161,7 +161,7 @@ fun SettingsScreen(
                         onCheckedChange = { scope.launch { settingsRepository.setFaceEnhancement(it) } }
                     )
                     
-                    Divider()
+                    HorizontalDivider()
                     
                     // Many Faces Mode
                     SettingSwitch(
@@ -171,7 +171,7 @@ fun SettingsScreen(
                         onCheckedChange = { scope.launch { settingsRepository.setManyFaces(it) } }
                     )
                     
-                    Divider()
+                    HorizontalDivider()
                     
                     // Mouth Mask
                     SettingSwitch(
@@ -181,7 +181,7 @@ fun SettingsScreen(
                         onCheckedChange = { scope.launch { settingsRepository.setMouthMask(it) } }
                     )
                     
-                    Divider()
+                    HorizontalDivider()
                     
                     // Mirror Camera
                     SettingSwitch(

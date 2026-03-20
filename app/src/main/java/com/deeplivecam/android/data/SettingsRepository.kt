@@ -10,15 +10,15 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
+    name = Constants.PREF_NAME
+)
+
 /**
  * Settings Repository using DataStore
  * Persists user preferences for the app
  */
 class SettingsRepository private constructor(private val context: Context) {
-    
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
-        name = Constants.PREF_NAME
-    )
     
     // Preference keys
     private object PreferencesKeys {

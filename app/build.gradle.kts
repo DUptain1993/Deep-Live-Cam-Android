@@ -6,13 +6,12 @@ plugins {
 
 android {
     namespace = "com.deeplivecam.android"
-    compileSdk = 35
-    buildToolsVersion = "35.0.0"
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.deeplivecam.android"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0.0"
 
@@ -74,6 +73,9 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+        jniLibs {
+            useLegacyPackaging = true
+        }
     }
 }
 
@@ -83,12 +85,12 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.0")
 
     implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0")
-    implementation("androidx.activity:activity-compose:1.9.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.7")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
+    implementation("androidx.activity:activity-compose:1.9.3")
 
-    val composeBom = platform("androidx.compose:compose-bom:2024.05.00")
+    val composeBom = platform("androidx.compose:compose-bom:2024.11.00")
     implementation(composeBom)
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
@@ -118,8 +120,6 @@ dependencies {
     implementation("com.microsoft.onnxruntime:onnxruntime-android:1.17.0")
 
     implementation("androidx.exifinterface:exifinterface:1.3.7")
-
-    implementation("com.google.accompanist:accompanist-permissions:0.34.0")
 
     implementation("androidx.datastore:datastore-preferences:1.1.1")
 
