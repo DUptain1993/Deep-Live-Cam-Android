@@ -89,10 +89,29 @@ fun MainScreen(
     ) { uri ->
         uri?.let {
             scope.launch {
-                val bmp = loadBitmap(context, it)
-                if (bmp != null) {
-                    sourceFaceBitmap = bmp
-                    faceSwapProcessor.setSourceFace(bmp)
+                try {
+                    val bmp = loadBitmap(context, it)
+                    if (bmp != null) {
+                        // Scale down if too large to prevent OOM
+                        val scaledBmp = if (bmp.width > 2048 || bmp.height > 2048) {
+                            val scale = minOf(2048f / bmp.width, 2048f / bmp.height)
+                            val scaledWidth = (bmp.width * scale).toInt()
+                            val scaledHeight = (bmp.height * scale).toInt()
+                            val scaled = Bitmap.createScaledBitmap(bmp, scaledWidth, scaledHeight, true)
+                            bmp.recycle()
+                            scaled
+                        } else {
+                            bmp
+                        }
+                        
+                        sourceFaceBitmap = scaledBmp
+                        faceSwapProcessor.setSourceFace(scaledBmp)
+                    }
+                } catch (e: OutOfMemoryError) {
+                    // Handle OOM gracefully
+                    System.gc()
+                } catch (e: Exception) {
+                    // Ignore other errors gracefully
                 }
             }
         }

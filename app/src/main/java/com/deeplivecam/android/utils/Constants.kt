@@ -2,28 +2,28 @@ package com.deeplivecam.android.utils
 
 /**
  * Application-wide constants
- * Optimized for 4GB RAM devices
+ * Optimized for mid-range devices (Moto G 2025, 4-6GB RAM)
  */
 object Constants {
     
-    // Memory Management
+    // Memory Management - Optimized for Moto G 2025
     const val MAX_MEMORY_MB = 4096  // 4GB device
-    const val APP_MEMORY_LIMIT_MB = 512  // Conservative app memory limit
-    const val MODEL_MEMORY_LIMIT_MB = 200  // Max memory for ML models
-    const val BITMAP_MEMORY_LIMIT_MB = 100  // Max memory for bitmaps
+    const val APP_MEMORY_LIMIT_MB = 384  // More conservative for stability
+    const val MODEL_MEMORY_LIMIT_MB = 150  // Reduced for better stability
+    const val BITMAP_MEMORY_LIMIT_MB = 80  // Reduced to prevent OOM
     
-    // Image Processing (Optimized for 4GB RAM)
-    const val MAX_INPUT_WIDTH = 1920  // Full HD width for better quality
-    const val MAX_INPUT_HEIGHT = 1920
-    const val PREVIEW_WIDTH = 1280  // Improved from 640
-    const val PREVIEW_HEIGHT = 960   // Improved from 480 (4:3 ratio)
+    // Image Processing - Balanced for Moto G 2025 (Snapdragon 4 Gen 2)
+    const val MAX_INPUT_WIDTH = 1280  // Reduced from 1920 for better performance
+    const val MAX_INPUT_HEIGHT = 1280
+    const val PREVIEW_WIDTH = 960   // Reduced from 1280 for smoother preview
+    const val PREVIEW_HEIGHT = 720  // Reduced from 960 for 16:9 ratio
     const val MODEL_INPUT_SIZE = 128  // Face swap model input
     const val ENHANCEMENT_INPUT_SIZE = 512  // Face enhancement (if enabled)
     
     // Camera Settings
-    const val TARGET_FPS = 24  // Balanced for performance
-    const val MIN_FPS = 15  // Minimum acceptable FPS
-    const val CAMERA_ASPECT_RATIO = 4.0 / 3.0
+    const val TARGET_FPS = 20  // Reduced from 24 for stability
+    const val MIN_FPS = 12  // Reduced threshold
+    const val CAMERA_ASPECT_RATIO = 16.0 / 9.0  // Modern aspect ratio
     
     // Video Processing
     const val VIDEO_BITRATE = 2_000_000  // 2 Mbps (reasonable quality)
@@ -42,13 +42,13 @@ object Constants {
     const val CACHE_DIR = "cache"
     
     // Processing Options
-    const val DEFAULT_QUALITY = 0.95f  // JPEG quality (increased from 0.85)
+    const val DEFAULT_QUALITY = 0.90f  // Balanced quality (reduced from 0.95)
     const val FACE_CONFIDENCE_THRESHOLD = 0.7f
-    const val MAX_FACES = 5  // Limit for many-faces mode
+    const val MAX_FACES = 3  // Reduced from 5 for performance
     
     // Performance Thresholds
-    const val LOW_MEMORY_THRESHOLD_MB = 100  // Trigger aggressive cleanup
-    const val THERMAL_THROTTLE_TEMP = 40.0f  // Celsius
+    const val LOW_MEMORY_THRESHOLD_MB = 150  // Increased for earlier cleanup
+    const val THERMAL_THROTTLE_TEMP = 38.0f  // Lower threshold for Moto G
     
     // Settings Keys
     const val PREF_NAME = "deep_live_cam_prefs"
