@@ -4,9 +4,15 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Text
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
 import com.deeplivecam.android.ui.DeepLiveCamNavHost
 import com.deeplivecam.android.ui.MainScreen
@@ -20,12 +26,34 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestNeededPermissions()
+        
+        Log.d(TAG, "MainActivity onCreate - starting")
+        
+        try {
+            requestNeededPermissions()
+            Log.d(TAG, "Permissions requested")
 
-        setContent {
-            DeepLiveCamTheme {
-                DeepLiveCamNavHost()
+            setContent {
+                DeepLiveCamTheme {
+                    try {
+                        DeepLiveCamNavHost()
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Error in DeepLiveCamNavHost", e)
+                        // Fallback to error display
+                        Box(
+                            modifier = androidx.compose.ui.Modifier.fillMaxSize(),
+                            contentAlignment = androidx.compose.ui.Alignment.Center
+                        ) {
+                            Text("Error: ${e.message}")
+                        }
+                    }
+                }
             }
+            
+            Log.d(TAG, "MainActivity onCreate - completed")
+        } catch (e: Exception) {
+            Log.e(TAG, "Fatal error in MainActivity.onCreate", e)
+            throw e
         }
     }
 
@@ -46,5 +74,9 @@ class MainActivity : ComponentActivity() {
         if (missing.isNotEmpty()) {
             permissionsLauncher.launch(missing.toTypedArray())
         }
+    }
+    
+    companion object {
+        private const val TAG = "MainActivity"
     }
 }
