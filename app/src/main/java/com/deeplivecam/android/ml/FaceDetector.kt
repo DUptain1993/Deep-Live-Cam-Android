@@ -16,10 +16,10 @@ class FaceDetector private constructor(context: Context) {
 
     private val detector by lazy {
         val options = FaceDetectorOptions.Builder()
-            .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_FAST)
+            .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE)  // Changed to ACCURATE
             .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_ALL)
             .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_NONE)
-            .setMinFaceSize(0.15f)
+            .setMinFaceSize(0.10f)  // Lowered from 0.15 to detect smaller faces
             .enableTracking()
             .build()
 

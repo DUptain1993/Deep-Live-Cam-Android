@@ -13,17 +13,17 @@ object Constants {
     const val BITMAP_MEMORY_LIMIT_MB = 80  // Reduced to prevent OOM
     
     // Image Processing - Balanced for Moto G 2025 (Snapdragon 4 Gen 2)
-    const val MAX_INPUT_WIDTH = 1280  // Reduced from 1920 for better performance
-    const val MAX_INPUT_HEIGHT = 1280
-    const val PREVIEW_WIDTH = 960   // Reduced from 1280 for smoother preview
-    const val PREVIEW_HEIGHT = 720  // Reduced from 960 for 16:9 ratio
+    const val MAX_INPUT_WIDTH = 1920  // Back to higher res for quality
+    const val MAX_INPUT_HEIGHT = 1920
+    const val PREVIEW_WIDTH = 1280  // Back to 1280 for better quality
+    const val PREVIEW_HEIGHT = 960   // Back to 960 (4:3 ratio better for faces)
     const val MODEL_INPUT_SIZE = 128  // Face swap model input
     const val ENHANCEMENT_INPUT_SIZE = 512  // Face enhancement (if enabled)
     
     // Camera Settings
     const val TARGET_FPS = 20  // Reduced from 24 for stability
     const val MIN_FPS = 12  // Reduced threshold
-    const val CAMERA_ASPECT_RATIO = 16.0 / 9.0  // Modern aspect ratio
+    const val CAMERA_ASPECT_RATIO = 4.0 / 3.0  // Better for face detection
     
     // Video Processing
     const val VIDEO_BITRATE = 2_000_000  // 2 Mbps (reasonable quality)
@@ -42,8 +42,8 @@ object Constants {
     const val CACHE_DIR = "cache"
     
     // Processing Options
-    const val DEFAULT_QUALITY = 0.90f  // Balanced quality (reduced from 0.95)
-    const val FACE_CONFIDENCE_THRESHOLD = 0.7f
+    const val DEFAULT_QUALITY = 0.92f  // Higher quality for better output
+    const val FACE_CONFIDENCE_THRESHOLD = 0.65f  // Lower for better detection
     const val MAX_FACES = 3  // Reduced from 5 for performance
     
     // Performance Thresholds

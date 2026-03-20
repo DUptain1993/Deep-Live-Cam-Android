@@ -32,8 +32,8 @@ object BitmapUtils {
         Log.d(TAG, "Scaling ${bitmap.width}x${bitmap.height} -> ${newWidth}x${newHeight}")
         
         return try {
-            if (highQuality && bitmap.width * bitmap.height < 4_000_000) {
-                // High-quality scaling with anti-aliasing (only for smaller images)
+            if (highQuality) {
+                // High-quality scaling with anti-aliasing and filtering
                 val scaledBitmap = Bitmap.createBitmap(newWidth, newHeight, Bitmap.Config.ARGB_8888)
                 val canvas = Canvas(scaledBitmap)
                 val paint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG)
@@ -45,13 +45,18 @@ object BitmapUtils {
                 canvas.drawBitmap(bitmap, srcRect, dstRect, paint)
                 scaledBitmap
             } else {
-                // Fast scaling for large images or when quality not critical
+                // Fast scaling
                 Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true)
             }
         } catch (e: OutOfMemoryError) {
             Log.e(TAG, "OOM during scaling, using fast method", e)
             // Fallback to basic scaling if OOM
-            Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, false)
+            try {
+                Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, false)
+            } catch (e2: OutOfMemoryError) {
+                Log.e(TAG, "OOM even with fast scaling, returning original", e2)
+                bitmap
+            }
         }
     }
 
